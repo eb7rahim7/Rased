@@ -10,12 +10,9 @@ workflows:
         script: npm install
       - name: Build Android App
         script: |
-          # تثبيت أدوات إكسبو الضرورية
-          npm install -g expo-cli
-          # إعداد المشروع للبناء
-          npx expo prebuild --platform android --clean
-          # الانتقال لمجلد الأندرويد والبناء
+          # إضافة --info لنرى الخطأ الحقيقي الذي يمنع الـ Bundle
+          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
           cd android
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --info
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
