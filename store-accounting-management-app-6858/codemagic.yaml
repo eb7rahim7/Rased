@@ -1,14 +1,10 @@
 workflows:
-  expo-android-build:
-    name: Expo Android Build
+  default:
+    name: Build Expo App
     instance_type: mac_mini_m2
     max_build_duration: 60
-    environment:
-      node_version: 20
     scripts:
-      - name: Install dependencies
-        script: npm install
-      - name: Build Android APK
-        script: npx eas build --platform android --non-interactive --local
+      - npm install
+      - npx eas build --platform android --non-interactive --local
     artifacts:
       - "*.apk"
