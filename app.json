@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "",
-    "slug": "",
+    "name": "رصيدي",
+    "slug": "accounting-management-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,7 +21,7 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "package": "",
+      "package": "com.onedaycloud.rased",
       "config": {
         "googleMaps": {
           "apiKey": ""
@@ -33,10 +33,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": ""
+        "projectId": "969f8c55ab9c1bb841ceb960c8cd667e9e9674dd"
       }
     },
-    "owner": "onedaycloud",
+    "owner": "amin26",
     "plugins": [
       "expo-font",
       [
