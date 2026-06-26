@@ -8,10 +8,10 @@ workflows:
         script: npm install
       - name: Build Android App
         script: |
-          # نقوم بتمرير الإعدادات مباشرة قبل أمر البناء
-          export NODE_OPTIONS="--max-old-space-size=4096"
+          # 1. تنظيف أي بناء سابق قد يسبب تعارضاً
           npx expo prebuild --platform android --clean
           cd android
-          ./gradlew assembleRelease
+          # 2. تنفيذ البناء مع تفعيل الذاكرة والـ Stacktrace لإظهار الخطأ الحقيقي
+          ./gradlew clean assembleRelease --stacktrace --info
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
