@@ -11,11 +11,5 @@ workflows:
           npx expo prebuild --platform android --clean
           cd android
           ./gradlew assembleRelease
-      - name: Locate APK
-        script: |
-          echo "Looking for APK file..."
-          find . -name "*.apk"
-    # لاحظ أن artifacts هنا يجب أن تكون محاذية لـ scripts تماماً
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
-      - android/app/build/outputs/bundle/release/*.aab
