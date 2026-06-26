@@ -14,24 +14,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build APK
+      - name: Setup Expo
+        run: npx expo install
+
+      - name: Build Standalone APK
         run: |
           npx expo prebuild --platform android --clean
           cd android
           ./gradlew assembleDebug
 
-      - name: Find and Rename APK
-        run: |
-          mkdir -p final-apk
-          cp android/app/build/outputs/apk/debug/app-debug.apk final-apk/rasidi-app.apk
-
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: rasidi-app
-          path: final-apk/rasidi-app.apk
+          name: rasidi-final-app
+          path: android/app/build/outputs/apk/debug/app-debug.apk
