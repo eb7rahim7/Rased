@@ -3,15 +3,13 @@ workflows:
     name: Build Android APK
     instance_type: mac_mini_m2
     max_build_duration: 60
-    environment:
-      node: 20
-      # زيادة حجم الذاكرة المتاحة للـ Node لعمل Bundling بدون انهيار
-      NODE_OPTIONS: "--max-old-space-size=4096" 
     scripts:
       - name: Install dependencies
         script: npm install
       - name: Build Android App
         script: |
+          # نقوم بتمرير الإعدادات مباشرة قبل أمر البناء
+          export NODE_OPTIONS="--max-old-space-size=4096"
           npx expo prebuild --platform android --clean
           cd android
           ./gradlew assembleRelease
