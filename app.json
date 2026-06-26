@@ -15,12 +15,13 @@
       "supportsTablet": false
     },
     "android": {
-      "adaptiveIcon": {
+        "adaptiveIcon": {
         "backgroundColor": "#FFFFFF",
-        ,"foregroundImage": "./assets/adaptive-icon.png"
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
+      
       "package": "",
       "config": {
         "googleMaps": {
