@@ -8,11 +8,13 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install
+      - name: Install CLI and Prebuild
+        script: |
+          npm install --save-dev @react-native-community/cli
+          npx expo prebuild --platform android --clean
       - name: Build Android App
         script: |
-          # إضافة --info لنرى الخطأ الحقيقي الذي يمنع الـ Bundle
-          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
           cd android
-          ./gradlew assembleRelease --info
+          ./gradlew assembleRelease
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
