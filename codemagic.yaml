@@ -8,10 +8,12 @@ workflows:
         script: npm install
       - name: Build Android App
         script: |
-          # 1. تنظيف أي بناء سابق قد يسبب تعارضاً
+          # تنظيف أي ملفات مؤقتة للموارد
           npx expo prebuild --platform android --clean
           cd android
-          # 2. تنفيذ البناء مع تفعيل الذاكرة والـ Stacktrace لإظهار الخطأ الحقيقي
-          ./gradlew clean assembleRelease --stacktrace --info
+          # تنفيذ تنظيف لـ Gradle
+          ./gradlew clean
+          # البناء بدون تنبيهات غير ضرورية لتقليل حجم السجل
+          ./gradlew assembleRelease --no-daemon
     artifacts:
       - android/app/build/outputs/apk/release/*.apk
