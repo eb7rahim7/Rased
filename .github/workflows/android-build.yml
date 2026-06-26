@@ -23,12 +23,15 @@ jobs:
         run: |
           npx expo prebuild --platform android --clean
           cd android
-          ./gradlew assembleRelease
+          ./gradlew assembleDebug
 
-      - name: Build APK
+      - name: Find and Rename APK
         run: |
-          npx expo prebuild --platform android --clean
-          cd android
-          # نستخدم --warning-mode all لرؤية الخطأ الحقيقي إذا فشل
-          # ونستخدم || true للتأكد من أننا نحصل على الملف حتى لو كان هناك خطأ بسيط
-          ./gradlew assembleRelease --warning-mode all || true
+          mkdir -p final-apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk final-apk/rasidi-app.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: rasidi-app
+          path: final-apk/rasidi-app.apk
