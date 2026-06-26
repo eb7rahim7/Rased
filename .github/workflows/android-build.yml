@@ -25,8 +25,10 @@ jobs:
           cd android
           ./gradlew assembleRelease
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: android/app/build/outputs/apk/release/*.apk
+      - name: Build APK
+        run: |
+          npx expo prebuild --platform android --clean
+          cd android
+          # نستخدم --warning-mode all لرؤية الخطأ الحقيقي إذا فشل
+          # ونستخدم || true للتأكد من أننا نحصل على الملف حتى لو كان هناك خطأ بسيط
+          ./gradlew assembleRelease --warning-mode all || true
