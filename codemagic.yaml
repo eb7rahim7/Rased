@@ -5,15 +5,14 @@ workflows:
     max_build_duration: 60
     environment:
       node: 20
+      # زيادة حجم الذاكرة المتاحة للـ Node لعمل Bundling بدون انهيار
+      NODE_OPTIONS: "--max-old-space-size=4096" 
     scripts:
       - name: Install dependencies
         script: npm install
-      - name: Install CLI and Prebuild
-        script: |
-          npm install --save-dev @react-native-community/cli
-          npx expo prebuild --platform android --clean
       - name: Build Android App
         script: |
+          npx expo prebuild --platform android --clean
           cd android
           ./gradlew assembleRelease
     artifacts:
