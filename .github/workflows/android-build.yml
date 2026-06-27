@@ -19,12 +19,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Setup Expo
-        run: npx expo install
+      # هذه الخطوة هي التي تدمج كود مشروعك (App.js) داخل التطبيق
+      - name: Bundle JS
+        run: npx expo export --platform android --output-dir android/app/src/main/assets
 
-      - name: Build Standalone APK
+      - name: Build APK
         run: |
-          npx expo prebuild --platform android --clean
           cd android
           ./gradlew assembleDebug
 
