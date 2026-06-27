@@ -19,20 +19,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Configure and Bundle
+      - name: Build with EAS
         run: |
-          npx expo prebuild --platform android --clean
-          # التأكد من وجود مجلد الأصول قبل الحزم
-          mkdir -p android/app/src/main/assets
-          npx expo export --platform android --output-dir android/app/src/main/assets
-
-      - name: Build APK
-        run: |
-          cd android
-          ./gradlew assembleDebug
+          npm install -g eas-cli
+          eas build --platform android --local --non-interactive --profile preview
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: rasidi-final-app
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: rasidi-app
+          path: build/outputs/apk/app-release-unsigned.apk
