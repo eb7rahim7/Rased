@@ -14,14 +14,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
 
-      # هذه الخطوة هي التي تدمج كود مشروعك (App.js) داخل التطبيق
-      - name: Bundle JS
-        run: npx expo export --platform android --output-dir android/app/src/main/assets
+      - name: Configure and Bundle
+        run: |
+          npx expo prebuild --platform android --clean
+          # التأكد من وجود مجلد الأصول قبل الحزم
+          mkdir -p android/app/src/main/assets
+          npx expo export --platform android --output-dir android/app/src/main/assets
 
       - name: Build APK
         run: |
